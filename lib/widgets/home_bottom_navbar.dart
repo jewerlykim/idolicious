@@ -13,7 +13,7 @@ class CustomBottomNavBar extends StatelessWidget {
       onTap: (index) {
         if (index == currentIndex) return;
 
-        if (index == 2 || index == 3) {
+        if (index == 2) {
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
@@ -36,7 +36,8 @@ class CustomBottomNavBar extends StatelessWidget {
           case 1:
             Navigator.pushReplacementNamed(context, '/detail_photos');
             break;
-          // case 2, 3는 아직 준비중이므로 작업이 필요 없음
+          case 3:
+            Navigator.pushReplacementNamed(context, '/detail_shop');
         }
       },
       items: [
@@ -61,7 +62,7 @@ class CustomBottomNavBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Image.asset('assets/images/icons/icon_bag.png',
-              color: currentIndex == 3 ? Colors.white : Colors.grey),
+              color: currentIndex == 3 ? Colors.white : Colors.white),
           label: 'bag',
           backgroundColor: const Color(0xFFF72FB3),
         ),

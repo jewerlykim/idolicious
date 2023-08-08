@@ -82,7 +82,7 @@ flutter:
     # icon
     - assets/images/icons/
     # detail
-    - assets/images/detail/bts.png
+    - assets/images/detail/
 
     # csv
     - assets/data/bts_yum.csv

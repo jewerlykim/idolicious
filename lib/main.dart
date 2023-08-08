@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import './utils/language_provider.dart';
 import 'detail/detail_home.dart';
 import 'detail/detail_photos.dart';
+import 'detail/detail_shop.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/choose_star': (context) => const ChooseStarPage(),
         '/detail_home': (context) => const DetailHome(),
         '/detail_photos': (context) => const DetailPhotos(),
+        '/detail_shop': (context) => const DetailShop(),
       },
     );
   }
