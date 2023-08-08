@@ -102,9 +102,10 @@ class _DetailPhotosState extends State<DetailPhotos> {
                         StaggeredGridTile.count(
                             crossAxisCellCount: 2,
                             mainAxisCellCount: 1,
-                            child: buildImageWidget(data[i]['Image'], i))
+                            child: buildImageWidget(
+                                data[i]['Image'], i, data[i]['code']))
                       else
-                        buildImageWidget(data[i]['Image'], i),
+                        buildImageWidget(data[i]['Image'], i, data[i]['code']),
                   ],
                 ));
               },
@@ -116,10 +117,11 @@ class _DetailPhotosState extends State<DetailPhotos> {
     );
   }
 
-  Widget buildImageWidget(String? imagePath, int index) {
+  Widget buildImageWidget(String? imagePath, int index, String? code) {
     return GestureDetector(
       onTap: () {
         // navigate to detail page
+        Navigator.pushNamed(context, '/description_main', arguments: code);
       },
       child: Image.network(
         imagePath!,
@@ -130,7 +132,7 @@ class _DetailPhotosState extends State<DetailPhotos> {
   }
 
   Future<List<Map<String, dynamic>>> loadYumCsvData() async {
-    final rawData = await rootBundle.loadString('assets/data/bts_yum.csv');
+    final rawData = await rootBundle.loadString('assets/data/bts_yum2.csv');
     final listData = const CsvToListConverter().convert(rawData, eol: '\n');
 
     List<Map<String, dynamic>> yumData = [];
@@ -142,6 +144,7 @@ class _DetailPhotosState extends State<DetailPhotos> {
         'Description': listData[i][2],
         'Location': listData[i][3],
         'Image': listData[i][4],
+        'code': listData[i][5],
       });
     }
 
@@ -150,7 +153,7 @@ class _DetailPhotosState extends State<DetailPhotos> {
   }
 
   Future<List<Map<String, dynamic>>> loadVisitCsvData() async {
-    final rawData = await rootBundle.loadString('assets/data/bts_visit.csv');
+    final rawData = await rootBundle.loadString('assets/data/bts_visit2.csv');
     final listData = const CsvToListConverter().convert(rawData, eol: '\n');
 
     List<Map<String, dynamic>> yumData = [];
@@ -162,6 +165,7 @@ class _DetailPhotosState extends State<DetailPhotos> {
         'Description': listData[i][2],
         'Location': listData[i][3],
         'Image': listData[i][4],
+        'code': listData[i][5],
       });
     }
 

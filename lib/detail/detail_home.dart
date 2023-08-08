@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:csv/csv.dart';
+import 'package:idolicious/utils/place_provider.dart';
 import 'package:idolicious/widgets/home_bottom_navbar.dart';
 import 'package:provider/provider.dart';
 import '../utils/star_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 Future<List<Map<String, dynamic>>> loadYumCsvData() async {
-  final rawData = await rootBundle.loadString('assets/data/bts_yum.csv');
+  final rawData = await rootBundle.loadString('assets/data/bts_yum2.csv');
   final listData = const CsvToListConverter().convert(rawData, eol: '\n');
 
   List<Map<String, dynamic>> yumData = [];
@@ -19,6 +19,7 @@ Future<List<Map<String, dynamic>>> loadYumCsvData() async {
       'Description': listData[i][2],
       'Location': listData[i][3],
       'Image': listData[i][4],
+      'code': listData[i][5],
     });
   }
 
@@ -27,7 +28,7 @@ Future<List<Map<String, dynamic>>> loadYumCsvData() async {
 }
 
 Future<List<Map<String, dynamic>>> loadVisitCsvData() async {
-  final rawData = await rootBundle.loadString('assets/data/bts_visit.csv');
+  final rawData = await rootBundle.loadString('assets/data/bts_visit2.csv');
   final listData = const CsvToListConverter().convert(rawData, eol: '\n');
 
   List<Map<String, dynamic>> yumData = [];
@@ -39,6 +40,7 @@ Future<List<Map<String, dynamic>>> loadVisitCsvData() async {
       'Description': listData[i][2],
       'Location': listData[i][3],
       'Image': listData[i][4],
+      'code': listData[i][5],
     });
   }
 
@@ -178,51 +180,63 @@ class DetailHome extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: snapshot.data!.map((data) {
-                          return SizedBox(
-                            width: 250,
-                            height: 300,
-                            child: Column(
-                              children: [
-                                Image.network(
-                                  data['Image'] ?? '',
-                                  width: 240,
-                                  height: 150,
-                                  fit: BoxFit.fill,
-                                ),
-                                const SizedBox(height: 10),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      data['Restaurant'] ?? '',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 16,
-                                        color: Color(0xff868181),
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text(
-                                      data['Description'] ?? '',
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 14,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      data['Location'] ?? '',
-                                      style: const TextStyle(
+                          return GestureDetector(
+                            onTap: () {
+                              Provider.of<PlaceProvider>(context, listen: false)
+                                  .place = data['Restaurant'];
+                              Navigator.pushNamed(
+                                context,
+                                '/description_main',
+                                arguments: data['code'],
+                              );
+                            },
+                            child: SizedBox(
+                              width: 250,
+                              height: 300,
+                              child: Column(
+                                children: [
+                                  Image.network(
+                                    data['Image'] ?? '',
+                                    width: 240,
+                                    height: 150,
+                                    fit: BoxFit.fill,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        data['Restaurant'] ?? '',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 16,
                                           color: Color(0xff868181),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w700),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        data['Description'] ?? '',
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 14,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        data['Location'] ?? '',
+                                        style: const TextStyle(
+                                            color: Color(0xff868181),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w700),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         }).toList(),
@@ -259,51 +273,63 @@ class DetailHome extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: snapshot.data!.map((data) {
-                          return SizedBox(
-                            width: 250,
-                            height: 300,
-                            child: Column(
-                              children: [
-                                Image.network(
-                                  data['Image'] ?? '',
-                                  width: 240,
-                                  height: 150,
-                                  fit: BoxFit.fill,
-                                ),
-                                const SizedBox(height: 10),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      data['Visit'] ?? '',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 16,
-                                        color: Color(0xff868181),
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text(
-                                      data['Description'] ?? '',
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 14,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      data['Location'] ?? '',
-                                      style: const TextStyle(
+                          return GestureDetector(
+                            onTap: () {
+                              Provider.of<PlaceProvider>(context, listen: false)
+                                  .place = data['Visit'];
+                              Navigator.pushNamed(
+                                context,
+                                '/description_main',
+                                arguments: data['code'],
+                              );
+                            },
+                            child: SizedBox(
+                              width: 250,
+                              height: 300,
+                              child: Column(
+                                children: [
+                                  Image.network(
+                                    data['Image'] ?? '',
+                                    width: 240,
+                                    height: 150,
+                                    fit: BoxFit.fill,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        data['Visit'] ?? '',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 16,
                                           color: Color(0xff868181),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w700),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        data['Description'] ?? '',
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 14,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        data['Location'] ?? '',
+                                        style: const TextStyle(
+                                            color: Color(0xff868181),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w700),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         }).toList(),

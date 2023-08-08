@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:idolicious/choose_language_page.dart';
 import 'package:idolicious/choose_start_page.dart';
+import 'package:idolicious/utils/place_provider.dart';
 import 'package:idolicious/utils/star_provider.dart';
 import 'package:provider/provider.dart';
 import './utils/language_provider.dart';
+import 'description/description_main.dart';
 import 'detail/detail_home.dart';
 import 'detail/detail_photos.dart';
 import 'detail/detail_shop.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // 1번코드
+  await dotenv.load(fileName: ".env");
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
@@ -16,6 +21,9 @@ void main() {
       ),
       ChangeNotifierProvider(
         create: (context) => StarProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => PlaceProvider(),
       ),
     ],
     child: const MyApp(),
@@ -35,6 +43,7 @@ class MyApp extends StatelessWidget {
         '/detail_home': (context) => const DetailHome(),
         '/detail_photos': (context) => const DetailPhotos(),
         '/detail_shop': (context) => const DetailShop(),
+        '/description_main': (context) => const DescriptionMain(),
       },
     );
   }
@@ -52,7 +61,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, '/choose_language');
+      // Navigator.pushReplacementNamed(context, '/choose_language');
+      // Navigator.pushReplacementNamed(context, '/description_main');
+      Navigator.pushReplacementNamed(context, '/detail_home');
     });
   }
 
