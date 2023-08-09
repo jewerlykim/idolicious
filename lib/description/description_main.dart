@@ -141,6 +141,64 @@ class _DescriptionMainState extends State<DescriptionMain> {
                     ),
                     onPressed: () {
                       // 공유 기능 추가
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SizedBox(
+                              height: 150,
+                              child: Column(
+                                children: [
+                                  const SizedBox(height: 20),
+                                  const Text(
+                                    'Share',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: -1,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      IconButton(
+                                        icon: Image.asset(
+                                          'assets/images/icons/icon_share_facebook.png',
+                                        ),
+                                        onPressed: () {
+                                          // 공유 기능 추가
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: Image.asset(
+                                          'assets/images/icons/icon_share_insta.png',
+                                        ),
+                                        onPressed: () {
+                                          // 공유 기능 추가
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: Image.asset(
+                                          'assets/images/icons/icon_share_kakao.png',
+                                        ),
+                                        onPressed: () {
+                                          // 공유 기능 추가
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: Image.asset(
+                                          'assets/images/icons/icon_share_twitter.png',
+                                        ),
+                                        onPressed: () {
+                                          // 공유 기능 추가
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          });
                     },
                   ),
                 ],
@@ -167,6 +225,7 @@ class _DescriptionMainState extends State<DescriptionMain> {
                                 startTime, endTime),
                             const SizedBox(height: 40),
                             buildAroundInfoButton(),
+                            const SizedBox(height: 40),
                           ],
                         ),
                       ),
@@ -651,7 +710,9 @@ class _DescriptionMainState extends State<DescriptionMain> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, '/description_around');
+      },
       child: const Text(
         'WHAT IS AROUND',
         style: TextStyle(

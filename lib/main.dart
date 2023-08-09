@@ -6,6 +6,7 @@ import 'package:idolicious/utils/place_provider.dart';
 import 'package:idolicious/utils/star_provider.dart';
 import 'package:provider/provider.dart';
 import './utils/language_provider.dart';
+import 'description/description_around.dart';
 import 'description/description_main.dart';
 import 'detail/detail_home.dart';
 import 'detail/detail_photos.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         '/detail_photos': (context) => const DetailPhotos(),
         '/detail_shop': (context) => const DetailShop(),
         '/description_main': (context) => const DescriptionMain(),
+        '/description_around': (context) => const DescriptionAround(),
       },
     );
   }
@@ -61,9 +63,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
-      // Navigator.pushReplacementNamed(context, '/choose_language');
+      Navigator.pushReplacementNamed(context, '/choose_language');
       // Navigator.pushReplacementNamed(context, '/description_main');
-      Navigator.pushReplacementNamed(context, '/detail_home');
+      // Navigator.pushReplacementNamed(context, '/detail_home');
+      // Navigator.pushReplacementNamed(context, '/description_around');
     });
   }
 
@@ -89,7 +92,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 'All the favorite of K-POP IDOLS', // 여기에 슬로건을 넣어주세요.
                 style: TextStyle(
                   fontFamily: 'Montserrat',
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                   shadows: [
@@ -101,7 +104,6 @@ class _SplashScreenState extends State<SplashScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 200),
             ],
           ),
         ),

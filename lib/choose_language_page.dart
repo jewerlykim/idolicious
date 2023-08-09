@@ -67,7 +67,7 @@ class _ChooseLanguagePageState extends State<ChooseLanguagePage> {
               ),
             ],
           ),
-          const SizedBox(height: 50),
+          const SizedBox(height: 30),
           SizedBox(
             child: CarouselSlider(
               options: CarouselOptions(
@@ -129,7 +129,7 @@ class _ChooseLanguagePageState extends State<ChooseLanguagePage> {
               }),
             ),
           ),
-          const SizedBox(height: 100),
+
           Text(
             languages[currentIndex],
             style: const TextStyle(

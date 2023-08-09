@@ -104,7 +104,7 @@ class _ChooseStarPageState extends State<ChooseStarPage> {
               }),
             ),
           ),
-          const SizedBox(height: 53),
+          const SizedBox(height: 10),
           Text(
             teams[currentIndex],
             style: const TextStyle(

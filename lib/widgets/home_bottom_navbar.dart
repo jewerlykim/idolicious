@@ -56,7 +56,7 @@ class CustomBottomNavBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Image.asset('assets/images/icons/icon_pin.png',
-              color: currentIndex == 2 ? Colors.white : Colors.grey),
+              color: currentIndex == 2 ? Colors.white : Colors.white),
           label: 'pin',
           backgroundColor: const Color(0xFFF72FB3),
         ),
